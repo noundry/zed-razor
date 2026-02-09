@@ -4,7 +4,7 @@ description = "ASP.NET Razor Pages and Blazor (.cshtml, .razor) with full C# syn
 version = "0.2.0"
 schema_version = 1
 authors = ["plsft"]
-repository = "https://github.com/plsft/zed-extensions"
+repository = "https://github.com/plsft/zed-dotnet-razor-extension"
 
 [grammars.razor]
 repository = "https://github.com/tris203/tree-sitter-razor"
