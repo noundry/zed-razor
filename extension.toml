@@ -1,7 +1,7 @@
 id = "razor"
 name = "Razor Pages"
-description = "ASP.NET Razor Pages and Blazor (.cshtml, .razor) with full C# syntax highlighting via tree-sitter-razor."
-version = "0.2.0"
+description = "ASP.NET Razor Pages, Blazor, and .NET project files (.cshtml, .razor, .csproj, .slnx, .sln) with syntax highlighting."
+version = "0.3.0"
 schema_version = 1
 authors = ["Noundry"]
 repository = "https://github.com/noundry/zed-razor"
@@ -9,3 +9,8 @@ repository = "https://github.com/noundry/zed-razor"
 [grammars.razor]
 repository = "https://github.com/tris203/tree-sitter-razor"
 commit = "fe46ce5ea7d844e53d59bc96f2175d33691c61c5"
+
+[grammars.xml]
+repository = "https://github.com/tree-sitter-grammars/tree-sitter-xml"
+commit = "863dbc381f44f6c136a399e684383b977bb2beaa"
+path = "xml"

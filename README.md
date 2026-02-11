@@ -1,6 +1,6 @@
 # Razor Pages — Zed Extension
 
-ASP.NET Razor Pages and Blazor support for [Zed](https://zed.dev), providing syntax highlighting for `.cshtml` and `.razor` files with full C# integration.
+ASP.NET Razor Pages and Blazor support for [Zed](https://zed.dev), providing syntax highlighting for `.cshtml` and `.razor` files with full C# integration. Also includes XML-based highlighting for .NET project files (`.csproj`, `.slnx`, `.sln`).
 
 ## Features
 
@@ -10,6 +10,7 @@ ASP.NET Razor Pages and Blazor support for [Zed](https://zed.dev), providing syn
 - **Razor comments** — `@* ... *@` block comments and standard `// ...` line comments
 - **Smart editing** — auto-closing brackets, auto-indentation for Razor control structures, and bracket matching
 - **Outline support** — navigate `@section`, `@code` blocks, methods, classes, and HTML elements in the symbol outline
+- **.NET project files** — XML-based syntax highlighting for `.csproj`, `.slnx`, and `.sln` files with tag, attribute, and comment support
 
 ## Installation
 
@@ -36,10 +37,13 @@ Then restart Zed or reload extensions.
 
 ## Supported file types
 
-| Extension | Description |
-|-----------|-------------|
-| `.cshtml` | Razor Pages (ASP.NET Core MVC views and pages) |
-| `.razor`  | Blazor components (server-side and WebAssembly) |
+| Extension | Grammar | Description |
+|-----------|---------|-------------|
+| `.cshtml` | Razor   | Razor Pages (ASP.NET Core MVC views and pages) |
+| `.razor`  | Razor   | Blazor components (server-side and WebAssembly) |
+| `.csproj` | XML     | MSBuild C# project files |
+| `.slnx`   | XML     | Solution files — XML format (.NET 9+) |
+| `.sln`    | XML     | Solution files — classic format (best-effort highlighting) |
 
 ## Razor directives
 
@@ -71,12 +75,17 @@ For debugging ASP.NET and Blazor projects directly in Zed, install the companion
 
 ## How it works
 
-This extension uses [tree-sitter-razor](https://github.com/tris203/tree-sitter-razor) for parsing. The grammar handles the full Razor template syntax including interleaved HTML, C# code blocks, and Razor directives. HTML content is injected as a separate language layer for proper highlighting.
+This extension uses two tree-sitter grammars:
+
+- [tree-sitter-razor](https://github.com/tris203/tree-sitter-razor) — parses the full Razor template syntax including interleaved HTML, C# code blocks, and Razor directives. HTML content is injected as a separate language layer for proper highlighting.
+- [tree-sitter-xml](https://github.com/tree-sitter-grammars/tree-sitter-xml) — provides XML parsing for `.csproj`, `.slnx`, and `.sln` project files.
+
+> **Note:** Classic `.sln` files use a proprietary text format, not XML. The XML grammar provides best-effort highlighting — XML-like portions (comments, GUIDs in quotes) will highlight correctly, while non-XML structure will appear as plain text. The newer `.slnx` format (introduced in .NET 9) is proper XML and highlights fully.
 
 ### Extension structure
 
 ```
-extension.toml              # Extension manifest
+extension.toml              # Extension manifest (grammars: razor, xml)
 languages/razor/
   config.toml               # Language configuration (file types, comments, brackets)
   highlights.scm            # Syntax highlighting queries
@@ -85,6 +94,21 @@ languages/razor/
   indents.scm               # Auto-indentation rules
   outline.scm               # Symbol outline queries
   overrides.scm             # Scope overrides for comments and strings
+languages/csproj/
+  config.toml               # .csproj file association
+  highlights.scm            # XML highlighting queries
+  indents.scm               # Auto-indentation rules
+  outline.scm               # Symbol outline queries
+languages/slnx/
+  config.toml               # .slnx file association
+  highlights.scm            # XML highlighting queries
+  indents.scm               # Auto-indentation rules
+  outline.scm               # Symbol outline queries
+languages/sln/
+  config.toml               # .sln file association
+  highlights.scm            # XML highlighting queries (best-effort)
+  indents.scm               # Auto-indentation rules
+  outline.scm               # Symbol outline queries
 ```
 
 ## Contributing

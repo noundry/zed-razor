@@ -1,0 +1,5 @@
+name = "Solution"
+grammar = "xml"
+path_suffixes = ["sln"]
+block_comment = ["<!-- ", " -->"]
+brackets = [{ start = "<", end = ">", close = true, newline = true }]

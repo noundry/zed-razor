@@ -1,0 +1,5 @@
+name = "C# Project"
+grammar = "xml"
+path_suffixes = ["csproj"]
+block_comment = ["<!-- ", " -->"]
+brackets = [{ start = "<", end = ">", close = true, newline = true }]
