@@ -3,8 +3,8 @@ name = "Razor Pages"
 description = "ASP.NET Razor Pages and Blazor (.cshtml, .razor) with full C# syntax highlighting via tree-sitter-razor."
 version = "0.2.0"
 schema_version = 1
-authors = ["plsft"]
-repository = "https://github.com/plsft/zed-dotnet-razor-extension"
+authors = ["Noundry"]
+repository = "https://github.com/noundry/zed-razor"
 
 [grammars.razor]
 repository = "https://github.com/tris203/tree-sitter-razor"
